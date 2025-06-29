@@ -12,24 +12,33 @@
 #include <string>
 
 class Node {
-public:
+private:
     int data;
     Node* next;
     Node* prev;
+
+public:
     Node(int value);
+    int getData() const;
+    Node* getNext() const;
+    Node* getPrev() const;
+    void setNext(Node* node);
+    void setPrev(Node* node);
 };
 
 class LinkedList {
-public:
+private:
     Node* head;
     Node* tail;
 
+public:
     LinkedList();
     ~LinkedList();
     void addLast(int value);
     void removeNodesWithEqualNeighbors();
     void show() const;
     void clear();
+    bool isEmpty() const;
 };
 
 #endif // LINKEDLIST_H

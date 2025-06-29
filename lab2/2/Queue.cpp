@@ -10,15 +10,13 @@ Queue::~Queue() {
 }
 
 void Queue::enqueue(int value) {
-    Node* newNode = new Node();
-    newNode->data = value;
-    newNode->next = nullptr;
+    Node* newNode = new Node(value);
 
     if (isEmpty()) {
         head = tail = newNode;
     }
     else {
-        tail->next = newNode;
+        tail->setNext(newNode);
         tail = newNode;
     }
 }
@@ -29,8 +27,8 @@ int Queue::dequeue() {
     }
 
     Node* temp = head;
-    int value = temp->data;
-    head = head->next;
+    int value = temp->getData();
+    head = head->getNext();
 
     if (head == nullptr) {
         tail = nullptr;
@@ -45,16 +43,16 @@ bool Queue::isEmpty() const {
 }
 
 void Queue::displayInitialState() const {
-    std::cout << "\nИсходный адрес первого элемента: " << head << " " << (head ? head->data : 0) << "\n";
+    std::cout << "\nИсходный адрес первого элемента: " << head << " " << (head ? head->getData() : 0) << "\n";
     std::cout << "Исходная очередь: ";
 
     Node* current = head;
     while (current != nullptr) {
-        std::cout << current->data << " ";
-        current = current->next;
+        std::cout << current->getData() << " ";
+        current = current->getNext();
     }
 
-    std::cout << "\nИсходный адрес последнего элемента: " << tail << " " << (tail ? tail->data : 0) << "\n";
+    std::cout << "\nИсходный адрес последнего элемента: " << tail << " " << (tail ? tail->getData() : 0) << "\n";
 }
 
 void Queue::extractAndDisplay(int n) {
@@ -73,15 +71,15 @@ void Queue::displayFinalState() const {
         std::cout << "Конец очереди: nullptr\n";
     }
     else {
-        std::cout << "Новое начало очереди: " << head << " " << head->data << "\n";
+        std::cout << "Новое начало очереди: " << head << " " << head->getData() << "\n";
         std::cout << "Оставшиеся элементы: ";
 
         Node* current = head;
         while (current != nullptr) {
-            std::cout << current->data << " ";
-            current = current->next;
+            std::cout << current->getData() << " ";
+            current = current->getNext();
         }
 
-        std::cout << "\nНовый конец очереди: " << tail << " " << tail->data << "\n";
+        std::cout << "\nНовый конец очереди: " << tail << " " << tail->getData() << "\n";
     }
 }

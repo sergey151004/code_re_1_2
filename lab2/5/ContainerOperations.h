@@ -6,9 +6,14 @@
 #include <iostream>
 
 /**
- * @brief Класс для операций с контейнерами
+ * @brief Статический класс для операций с контейнерами
  */
 class ContainerOperations {
+private:
+    // Запрет создания экземпляров класса
+    ContainerOperations() = delete;
+    ~ContainerOperations() = delete;
+
 public:
     /**
      * @brief Заполнение контейнера данными

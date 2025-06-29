@@ -13,9 +13,22 @@
   * @brief Узел очереди
   */
 class Node {
-public:
+private:
     int data;     ///< Данные узла
     Node* next;   ///< Указатель на следующий узел
+
+public:
+    /**
+     * @brief Конструктор узла
+     * @param value Значение узла
+     * @param nextNode Указатель на следующий узел
+     */
+    Node(int value = 0, Node* nextNode = nullptr) : data(value), next(nextNode) {}
+
+    // Методы доступа
+    int getData() const { return data; }
+    Node* getNext() const { return next; }
+    void setNext(Node* nextNode) { next = nextNode; }
 };
 
 /**
@@ -37,6 +50,10 @@ public:
      * @brief Деструктор
      */
     ~Queue();
+
+    // Запрет копирования и присваивания
+    Queue(const Queue&) = delete;
+    Queue& operator=(const Queue&) = delete;
 
     /**
      * @brief Добавление элемента в очередь

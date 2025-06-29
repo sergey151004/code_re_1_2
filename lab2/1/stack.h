@@ -20,19 +20,31 @@ class Stack {
 private:
     struct Node {
         int data;      ///< Значение элемента стека
-        Node* next;     ///< Указатель на следующий элемент
-        Node(int val) : data(val), next(nullptr) {}
+        Node* next;    ///< Указатель на следующий элемент
+
+        explicit Node(int val) : data(val), next(nullptr) {}
+
+        // Запрещаем копирование и присваивание узлов
+        Node(const Node&) = delete;
+        Node& operator=(const Node&) = delete;
     };
-    Node* top;          ///< Указатель на вершину стека
-    int count;          ///< Количество элементов в стеке
+
+    Node* top;         ///< Указатель на вершину стека
+    int count;         ///< Количество элементов в стеке
+
+    // Запрещаем копирование и присваивание стека
+    Stack(const Stack&) = delete;
+    Stack& operator=(const Stack&) = delete;
 
 public:
     Stack();
     ~Stack();
+
     void push(int value);
     void pop();
     void display() const;
     bool isEmpty() const;
+    int size() const;
 };
 
 #endif // STACK_H

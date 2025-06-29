@@ -6,6 +6,7 @@
 #include "stack.h"
 #include <iostream>
 #include <limits>
+#include <stdexcept>
 
  /**
   * @brief Проверяет корректность ввода числа.
@@ -30,16 +31,28 @@ int getValidInput(const std::string& message) {
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    Stack stack;
 
-    int n = getValidInput("Введите количество элементов стека: ");
-    for (int i = 0; i < n; ++i) {
-        int num = getValidInput("Введите элемент стека: ");
-        stack.push(num);
+    try {
+        Stack stack;
+
+        int n = getValidInput("Введите количество элементов стека: ");
+        for (int i = 0; i < n; ++i) {
+            int num = getValidInput("Введите элемент стека: ");
+            stack.push(num);
+        }
+
+        stack.display();
+
+        if (!stack.isEmpty()) {
+            stack.pop();
+        }
+
+        std::cout << "Текущий размер стека: " << stack.size() << std::endl;
     }
-
-    stack.display();
-    stack.pop();
+    catch (const std::exception& e) {
+        std::cerr << "Произошла ошибка: " << e.what() << std::endl;
+        return 1;
+    }
 
     return 0;
 }

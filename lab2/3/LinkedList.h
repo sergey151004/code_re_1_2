@@ -7,19 +7,9 @@
 #define LINKEDLIST_H
 
  /**
-  * @class Node
-  * @brief Узел односвязного списка.
+  * @class LinkedList
+  * @brief Класс для работы с односвязным списком.
   */
-class Node {
-public:
-    int data;      ///< Данные узла.
-    Node* next;    ///< Указатель на следующий узел.
-};
-
-/**
- * @class LinkedList
- * @brief Класс для работы с односвязным списком.
- */
 class LinkedList {
 public:
     LinkedList();
@@ -50,20 +40,35 @@ public:
     void display() const;
 
     /**
-     * @brief Возвращает указатель на последний элемент списка.
-     * @return Указатель на последний элемент.
+     * @brief Возвращает значение последнего элемента списка.
+     * @return Значение последнего элемента или -1, если список пуст.
      */
-    Node* getLastNode() const;
+    int getLastValue() const;
 
     /**
-     * @brief Находит узел по значению.
+     * @brief Проверяет наличие элемента в списке.
      * @param data Значение для поиска.
-     * @return Указатель на найденный узел или nullptr, если не найден.
+     * @return true, если элемент найден, иначе false.
      */
-    Node* find(int data) const;
+    bool contains(int data) const;
 
 private:
+    /**
+     * @struct Node
+     * @brief Узел односвязного списка.
+     */
+    struct Node {
+        int data;      ///< Данные узла.
+        Node* next;    ///< Указатель на следующий узел.
+    };
+
     Node* head; ///< Указатель на голову списка.
+
+    /**
+     * @brief Возвращает указатель на последний узел списка.
+     * @return Указатель на последний узел или nullptr, если список пуст.
+     */
+    Node* getLastNode() const;
 };
 
 #endif // LINKEDLIST_H

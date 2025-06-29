@@ -1,7 +1,6 @@
 ﻿/**
  * @file main.cpp
  * @brief Основной файл для демонстрации работы с односвязным списком.
- * @details Продолжение задания: вставить значение M после каждого второго элемента списка.
  */
 
 #include "LinkedList.h"
@@ -9,7 +8,6 @@
 
  /**
   * @brief Проверяет, является ли введённое число корректным.
-  * @param value Введённое значение.
   * @param min Минимально допустимое значение.
   * @param message Сообщение для пользователя.
   * @return Корректное число.
@@ -55,9 +53,9 @@ int main() {
     std::cout << "Список после вставки:" << std::endl;
     list.display();
 
-    Node* lastNode = list.getLastNode();
-    if (lastNode != nullptr) {
-        std::cout << "Ссылка на последний элемент: " << lastNode << ", значение: " << lastNode->data << std::endl;
+    int lastValue = list.getLastValue();
+    if (lastValue != -1) {
+        std::cout << "Значение последнего элемента: " << lastValue << std::endl;
     }
 
     std::cout << "Хотите удалить какой-нибудь элемент? (1 - да, 2 - нет): ";

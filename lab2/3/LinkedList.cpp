@@ -24,11 +24,8 @@ void LinkedList::append(int data) {
         head = newNode;
     }
     else {
-        Node* current = head;
-        while (current->next != nullptr) {
-            current = current->next;
-        }
-        current->next = newNode;
+        Node* lastNode = getLastNode();
+        lastNode->next = newNode;
     }
 }
 
@@ -95,7 +92,7 @@ void LinkedList::display() const {
     std::cout << std::endl;
 }
 
-Node* LinkedList::getLastNode() const {
+LinkedList::Node* LinkedList::getLastNode() const {
     if (head == nullptr) {
         return nullptr;
     }
@@ -107,10 +104,18 @@ Node* LinkedList::getLastNode() const {
     return current;
 }
 
-Node* LinkedList::find(int data) const {
+int LinkedList::getLastValue() const {
+    Node* lastNode = getLastNode();
+    return lastNode ? lastNode->data : -1;
+}
+
+bool LinkedList::contains(int data) const {
     Node* current = head;
-    while (current != nullptr && current->data != data) {
+    while (current != nullptr) {
+        if (current->data == data) {
+            return true;
+        }
         current = current->next;
     }
-    return current;
+    return false;
 }

@@ -8,82 +8,106 @@
 
 Node::Node(int value) : data(value), next(nullptr), prev(nullptr) {}
 
+int Node::getData() const {
+    return data;
+}
+
+Node* Node::getNext() const {
+    return next;
+}
+
+Node* Node::getPrev() const {
+    return prev;
+}
+
+void Node::setNext(Node* node) {
+    next = node;
+}
+
+void Node::setPrev(Node* node) {
+    prev = node;
+}
+
 LinkedList::LinkedList() : head(nullptr), tail(nullptr) {}
 
 LinkedList::~LinkedList() {
     clear();
 }
 
+bool LinkedList::isEmpty() const {
+    return head == nullptr;
+}
+
 void LinkedList::addLast(int value) {
     Node* newNode = new Node(value);
 
-    if (tail == nullptr) {
+    if (isEmpty()) {
         head = tail = newNode;
-        head->next = head;
-        head->prev = head;
+        head->setNext(head);
+        head->setPrev(head);
     }
     else {
-        newNode->prev = tail;
-        newNode->next = head;
-        tail->next = newNode;
-        head->prev = newNode;
+        newNode->setPrev(tail);
+        newNode->setNext(head);
+        tail->setNext(newNode);
+        head->setPrev(newNode);
         tail = newNode;
     }
 }
 
 void LinkedList::removeNodesWithEqualNeighbors() {
-    if (head == nullptr) return;
+    if (isEmpty()) return;
 
     Node* current = head;
     Node* nextNode = nullptr;
 
     do {
-        nextNode = current->next;
+        nextNode = current->getNext();
 
-        if (current->prev->data == current->next->data && current->prev != current->next) {
+        if (current->getPrev()->getData() == current->getNext()->getData() && current->getPrev() != current->getNext()) {
             if (current == head && current == tail) {
                 delete current;
                 head = tail = nullptr;
                 break;
             }
             else if (current == head) {
-                head = current->next;
+                head = current->getNext();
             }
             else if (current == tail) {
-                tail = current->prev;
+                tail = current->getPrev();
             }
 
-            current->prev->next = current->next;
-            current->next->prev = current->prev;
+            current->getPrev()->setNext(current->getNext());
+            current->getNext()->setPrev(current->getPrev());
             delete current;
         }
 
         current = nextNode;
-    } while (current != head && head != nullptr);
+    } while (current != head && !isEmpty());
 }
 
 void LinkedList::show() const {
-    if (head == nullptr) {
+    if (isEmpty()) {
         std::cout << "Список пуст" << std::endl;
         return;
     }
 
     Node* current = head;
     do {
-        std::cout << current->data << " ";
-        current = current->next;
+        std::cout << current->getData() << " ";
+        current = current->getNext();
     } while (current != head);
 
     std::cout << std::endl;
 }
 
 void LinkedList::clear() {
-    if (head == nullptr) return;
+    if (isEmpty()) return;
 
     Node* current = head;
     do {
         Node* temp = current;
-        current = current->next;
+        current = current->getNext();
         delete temp;
     } while (current != head);
 

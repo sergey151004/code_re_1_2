@@ -5,6 +5,7 @@
 
 #include "stack.h"
 #include <iostream>
+#include <stdexcept>
 
  /**
   * @brief Конструктор по умолчанию.
@@ -28,18 +29,16 @@ void Stack::push(int value) {
     Node* newNode = new Node(value);
     newNode->next = top;
     top = newNode;
-    count += 1;
+    count++;
 }
 
 /**
  * @brief Извлекает элемент из вершины стека.
- * @details Выводит значение извлекаемого элемента и адрес новой вершины.
- *          Если стек становится пустым, устанавливает top в nullptr.
+ * @throw std::runtime_error если стек пуст
  */
 void Stack::pop() {
     if (isEmpty()) {
-        std::cerr << "Ошибка: попытка извлечь элемент из пустого стека." << std::endl;
-        return;
+        throw std::runtime_error("Ошибка: попытка извлечь элемент из пустого стека.");
     }
 
     Node* temp = top;
@@ -53,7 +52,7 @@ void Stack::pop() {
     }
 
     delete temp;
-    count -= 1;
+    count--;
 }
 
 /**
@@ -62,6 +61,14 @@ void Stack::pop() {
  */
 bool Stack::isEmpty() const {
     return top == nullptr;
+}
+
+/**
+ * @brief Возвращает количество элементов в стеке.
+ * @return Количество элементов в стеке.
+ */
+int Stack::size() const {
+    return count;
 }
 
 /**
@@ -74,7 +81,7 @@ void Stack::display() const {
     }
 
     Node* current = top;
-    std::cout << "Содержимое стека:" << std::endl;
+    std::cout << "Содержимое стека (всего элементов: " << count << "):" << std::endl;
     while (current != nullptr) {
         std::cout << current->data << std::endl;
         current = current->next;
